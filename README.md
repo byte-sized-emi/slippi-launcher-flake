@@ -11,7 +11,7 @@ Add the input:
 ```nix
 inputs.slippi-launcher = {
   url = "github:byte-sized-emi/slippi-launcher-flake";
-  inputs.nixpkgs.follows = "nixpkgs-unstable";
+  inputs.nixpkgs.follows = "nixpkgs";
 };
 ```
 
