@@ -27,8 +27,9 @@
         {
           options.programs.slippi-launcher = {
             enable = lib.mkEnableOption "Enable Slippi Launcher";
-            package = lib.mkPackageOption pkgs "slippi-launcher" {
-              default = [ self.packages.x86_64-linux.default ];
+            package = lib.mkOption {
+              default = self.packages.x86_64-linux.default;
+              type = lib.types.package;
               example = ''
                 pkgs.slippi-launcher.overrideVersion
                   {
@@ -40,6 +41,7 @@
             enableAppImageSupport = lib.mkEnableOption "Configure AppImage execution as required for slippi";
           };
           config = lib.mkIf cfg.enable {
+            nixpkgs.overlays = [ self.overlays.default ];
             environment.systemPackages = [ cfg.package ];
             programs.appimage = lib.mkIf cfg.enableAppImageSupport {
               enable = true;
