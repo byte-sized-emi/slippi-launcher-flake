@@ -1,5 +1,35 @@
 # slippi-launcher flake
 
-Simple flake for the slippi-launcher. Outputs a package, overlay, and NixOS module.
+Simple flake for the slippi launcher (https://slippi.gg). Outputs a package, overlay, and NixOS module.
 
-For the NixOS module, simple import it and enable `programs.slippi-launcher.enable = true`. Note that slippi itself launches AppImages, which on NixOS need some configuration to be run - if you don't want to do this yourself you can just enable `programs.slippi-launcher.enableAppImageSupport = true`.
+## Installation
+
+### For NixOS configured with a flake:
+
+Add the input:
+
+```nix
+inputs.slippi-launcher = {
+  url = "github:byte-sized-emi/slippi-launcher-flake";
+  inputs.nixpkgs.follows = "nixpkgs-unstable";
+};
+```
+
+Import and enable the package:
+
+```nix
+# configuration.nix or other NixOS configuration
+{ inputs, ... }:
+{
+  imports = [
+    inputs.slippi-launcher.nixosModules.default
+  ];
+  
+  programs.slippi-launcher = {
+    enable = true;
+    # enables AppImage binfmt support in NixOS.
+    # Required because the launcher runs additional AppImages
+    enableAppImageSupport = true;
+  };
+}
+```
