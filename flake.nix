@@ -1,5 +1,5 @@
 {
-  description = "A flake for setting up slippi on Nix(OS)";
+  description = "A flake for setting up slippi / the slippi launcher on Nix(OS)";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
